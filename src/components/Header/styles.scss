@@ -17,5 +17,28 @@
                 height: 60px;
             }
         }
+        .registerLink {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            transform: translateY(-50%);
+            ul,
+            li {
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                list-style-type: none;
+                a {
+                    font-size: 2rem;
+                    line-height: 1;
+                    text-decoration: none;
+                    color: #000;
+                    text-transform: uppercase;
+                }
+            }
+        }
     }
 }
