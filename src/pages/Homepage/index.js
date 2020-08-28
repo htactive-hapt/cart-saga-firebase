@@ -1,11 +1,15 @@
 import React from 'react'
-import Directory from '../../components/Directory'
+import Slider from '../../components/Slider'
+import Footer from '../../components/Footer'
 import './styles.scss'
+import ShowProducts from '../../components/Products/ShowProduct'
 
 const Homepage = props => {
     return (
         <section className='homepage'>
-            <Directory />
+            <Slider />
+           
+            {/* <Footer /> */}
         </section>
     )
 }

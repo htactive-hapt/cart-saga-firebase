@@ -1,14 +1,18 @@
-import React from 'react'
-import './styles.scss'
+import React from 'react';
+import { Layout } from 'antd';
+import 'antd/dist/antd.css';
+import './styles.scss';
+const { Footer } = Layout;
 
-const Footer = props => {
+
+const ContentFooter = () => {
     return (
         <footer className='footer'>
             <div className='wrap'>
-                <span>&#169; Fashion Shop - Ecommerce Project</span>
+                <Footer style={{ textAlign: 'center', border: 2 }}>&#169; Fashion Shop - Ecommerce Project</Footer>
             </div>
         </footer>
-    )
+    );
 }
 
-export default Footer
+export default ContentFooter;

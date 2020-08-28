@@ -1,7 +1,19 @@
 .footer {
+    border-top: 2px solid #FA5730;
     .wrap {
+        
         max-width: 1450px;
         margin: 0 auto;
         padding: 20px 10px;
     }
+}
+
+.ant-layout-footer {
+    border-top: 2px solid #FA5730;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: initial;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    background: #f0f2f5;
 }
