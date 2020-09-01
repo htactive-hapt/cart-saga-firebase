@@ -70,54 +70,53 @@ const Admin = props => {
                 </ul>
             </div>
 
-            <Modal {...configModal}>
-                <div className='addNewProductForm'>
-                    <form onSubmit={handleSubmit}>
-                        <h2>
-                            Add new product
+            {/* <Modal {...configModal}> */}
+            <div className='addNewProductForm'>
+                <form onSubmit={handleSubmit}>
+                    <h2>
+                        Add new product
                         </h2>
-                        <FormSelect
-                            label='Category'
-                            options={[{
-                                value: 'girltop',
-                                name: 'Áo nữ'
-                            }, {
-                                value: 'Skirt',
-                                name: 'Chân váy'
-                            }]}
-                            handleChange={e => setProductCategory(e.target.value)}
-                        />
+                    <FormSelect
+                        label='Category'
+                        options={[{
+                            value: 'girltop',
+                            name: 'Áo nữ'
+                        }, {
+                            value: 'Skirt',
+                            name: 'Chân váy'
+                        }]}
+                        handleChange={e => setProductCategory(e.target.value)}
+                    />
 
-                        <FormInput
-                            label='Name'
-                            type='text'
-                            value={productName}
-                            handleChange={e => setProductName(e.target.value)}
-                        />
+                    <FormInput
+                        label='Name'
+                        type='text'
+                        value={productName}
+                        handleChange={e => setProductName(e.target.value)}
+                    />
 
-                        <FormInput
-                            label='Main image URL'
-                            type='url'
-                            value={productThumbnail}
-                            handleChange={e => setProductThumbnail(e.target.value)}
-                        />
+                    <FormInput
+                        label='Main image URL'
+                        type='file'
+                        handleChange={e => setProductThumbnail(e.target.files[0])}
+                    />
 
-                        <FormInput
-                            label='Price'
-                            type='number'
-                            min='0.00'
-                            max='10000.00'
-                            step='0.01'
-                            value={productPrice}
-                            handleChange={e => setProductPrice(e.target.value)}
-                        />
+                    <FormInput
+                        label='Price'
+                        type='number'
+                        min='0.00'
+                        max='10000.00'
+                        step='0.01'
+                        value={productPrice}
+                        handleChange={e => setProductPrice(e.target.value)}
+                    />
 
-                        <Button type='submit'>
-                            Add product
+                    <Button type='submit'>
+                        Add product
                         </Button>
-                    </form>
-                </div>
-            </Modal>
+                </form>
+            </div>
+            {/* </Modal> */}
 
             <div className='manageProducts'>
 

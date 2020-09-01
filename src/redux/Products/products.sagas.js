@@ -10,11 +10,10 @@ export function* addProduct({ payload: { productCategory, productName, productTh
         yield handleAddProduct({
             productCategory,
             productName,
-            productThumbnail,
             productPrice,
             productAdminUserUID: auth.currentUser.uid,
             createdDate: timestamp
-        });
+        }, productThumbnail);
         yield put(
             fetchProducts()
         );

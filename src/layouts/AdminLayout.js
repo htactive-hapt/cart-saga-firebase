@@ -1,15 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signOutUser } from '../redux/User/user.actions';
 
-import Header from './../components/Header';
 import VerticalNav from './../components/VerticalNav';
 import Footer from './../components/Footer';
 
+const mapState = ({ user }) => ({
+    currentUser: user.currentUser
+});
+
 const AdminLayout = props => {
     const dispatch = useDispatch();
-
     const signOut = () => {
         dispatch(signOutUser());
     };

@@ -28,7 +28,7 @@ const AdminBar = () => {
                     <Link to='/admin'>Admin</Link>
                 </li>
             </ul>
-        </div> 
+        </div>
     )
 }
 

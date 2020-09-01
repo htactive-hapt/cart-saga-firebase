@@ -1,12 +1,22 @@
-import { firestore } from '../../firebase'
+import { firestore } from '../../firebase';
+import firebase from '../../firebase'
 
-export const handleAddProduct = product => {
+export const handleAddProduct = (product, image) => {
     return new Promise((resolve, reject) => {
         firestore
             .collection('products')
-            .doc()
-            .set(product)
-            .then(() => {
+            .add(product)
+            .then((res) => {
+                const storageRef = firebase.storage().ref();
+                const uploadTask = storageRef
+                    .child('products/' + image.name)
+                    .put(image).then((respon) => {
+                        respon.ref.getDownloadURL().then((url) => firestore
+                            .collection('products').doc(res.id).set({
+                                ...product,
+                                productThumbnail: url
+                            }))
+                    });
                 resolve();
             })
             .catch(err => {
