@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProduct, fetchProducts, deleteProduct } from './../../redux/Products/products.actions';
-import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
+import { Row, Col } from 'antd'
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
 import './styles.scss';
@@ -14,8 +14,7 @@ const mapState = ({ productsData }) => ({
 const Admin = props => {
     const { products } = useSelector(mapState);
     const dispatch = useDispatch();
-    const [hideModal, setHideModal] = useState(true);
-    const [productCategory, setProductCategory] = useState('girltop');
+    const [productCategory, setProductCategory] = useState('Skirt');
     const [productName, setProductName] = useState('');
     const [productThumbnail, setProductThumbnail] = useState('');
     const [productPrice, setProductPrice] = useState(0);
@@ -24,18 +23,9 @@ const Admin = props => {
         dispatch(
             fetchProducts()
         );
-
     }, []);
 
-    const toggleModal = () => setHideModal(!hideModal);
-
-    const configModal = {
-        hideModal,
-        toggleModal
-    };
-
     const resetForm = () => {
-        setHideModal(true);
         setProductCategory('girltop');
         setProductName('');
         setProductThumbnail('');
@@ -44,7 +34,6 @@ const Admin = props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-
         dispatch(
             addProduct({
                 productCategory,
@@ -54,116 +43,111 @@ const Admin = props => {
             })
         );
         resetForm();
-
     };
 
     return (
         <div className='admin'>
-
-            <div className='callToActions'>
-                <ul>
-                    <li>
-                        <Button onClick={() => toggleModal()}>
-                            Add new product
-            </Button>
-                    </li>
-                </ul>
-            </div>
-
-            {/* <Modal {...configModal}> */}
+            <h2>Quản lý sản phẩm</h2>
             <div className='addNewProductForm'>
                 <form onSubmit={handleSubmit}>
-                    <h2>
-                        Add new product
-                        </h2>
                     <FormSelect
-                        label='Category'
+                        label='Loại sản phẩm'
                         options={[{
                             value: 'girltop',
                             name: 'Áo nữ'
                         }, {
                             value: 'Skirt',
                             name: 'Chân váy'
+                        }, {
+                            value: 'hat',
+                            name: 'Mũ nón'
+                        }, {
+                            value: 'shoes',
+                            name: 'Giày'
+                        }, {
+                            value: 'shirt',
+                            name: 'Áo sơ mi'
                         }]}
                         handleChange={e => setProductCategory(e.target.value)}
                     />
-
-                    <FormInput
-                        label='Name'
-                        type='text'
-                        value={productName}
-                        handleChange={e => setProductName(e.target.value)}
-                    />
-
-                    <FormInput
-                        label='Main image URL'
-                        type='file'
-                        handleChange={e => setProductThumbnail(e.target.files[0])}
-                    />
-
-                    <FormInput
-                        label='Price'
-                        type='number'
-                        min='0.00'
-                        max='10000.00'
-                        step='0.01'
-                        value={productPrice}
-                        handleChange={e => setProductPrice(e.target.value)}
-                    />
-
-                    <Button type='submit'>
-                        Add product
-                        </Button>
+                    <Row>
+                        <Col span={6}>
+                            <FormInput
+                                label='Tên sản phẩm'
+                                type='text'
+                                value={productName}
+                                handleChange={e => setProductName(e.target.value)}
+                            />
+                        </Col>
+                        <Col span={1}></Col>
+                        <Col span={6}>
+                            <FormInput
+                                label='Ảnh minh họa'
+                                type='file'
+                                handleChange={e => setProductThumbnail(e.target.files[0])}
+                            />
+                        </Col>
+                        <Col span={1}></Col>
+                        <Col span={4}>
+                            <FormInput
+                                label='Giá sản phẩm'
+                                type='number'
+                                min='0.00'
+                                max='10000.00'
+                                step='0.01'
+                                value={productPrice}
+                                handleChange={e => setProductPrice(e.target.value)}
+                            />
+                        </Col>
+                    </Row>
+                    <Row style={{ marginBottom: 10 }}>
+                        <Col span={4}>
+                            <Button type='submit'>
+                                Add product
+                            </Button>
+                        </Col>
+                    </Row>
                 </form>
             </div>
-            {/* </Modal> */}
 
             <div className='manageProducts'>
-
-                <table border='0' cellPadding='0' cellSpacing='0'>
+                <table className="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <th>
-                                <h1>
-                                    Manage Products
-                                </h1>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <table className='results' border='0' cellPadding='10' cellSpacing='0'>
-                                    <tbody>
-                                        {products.map((product, index) => {
-                                            const {
-                                                productName,
-                                                productThumbnail,
-                                                productPrice,
-                                                documentID
-                                            } = product;
+                        {products.map((product, index) => {
+                            const {
+                                productName,
+                                productThumbnail,
+                                productPrice,
+                                documentID
+                            } = product;
 
-                                            return (
-                                                <tr key={index}>
-                                                    <td>
-                                                        <img className='thumb' src={productThumbnail} />
-                                                    </td>
-                                                    <td>
-                                                        {productName}
-                                                    </td>
-                                                    <td>
-                                                        £{productPrice}
-                                                    </td>
-                                                    <td>
-                                                        <Button onClick={() => dispatch(deleteProduct(documentID))}>
-                                                            Delete
-                                                        </Button>
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })}
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
+                            return (
+                                <tr key={index}>
+                                    <td style={{ width: 300, height: 300 }}>
+                                        <img alt={productName} className='thumb' src={productThumbnail} />
+                                    </td>
+                                    <td>
+                                        {productName}
+                                    </td>
+                                    <td>
+                                        £{productPrice}
+                                    </td>
+                                    <td>
+                                        <Button onClick={() => dispatch(deleteProduct(documentID))}>
+                                            Delete
+                                        </Button>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                     </tbody>
                 </table>
             </div>

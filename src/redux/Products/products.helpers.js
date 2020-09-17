@@ -8,7 +8,7 @@ export const handleAddProduct = (product, image) => {
             .add(product)
             .then((res) => {
                 const storageRef = firebase.storage().ref();
-                const uploadTask = storageRef
+                storageRef
                     .child('products/' + image.name)
                     .put(image).then((respon) => {
                         respon.ref.getDownloadURL().then((url) => firestore
@@ -46,14 +46,12 @@ export const handleFetchProducts = () => {
 }
 
 export const handleDeleteProduct = documentID => {
-    console.log(documentID, 1)
     return new Promise((resolve, reject) => {
         firestore
             .collection('products')
             .doc(documentID)
             .delete()
             .then(() => {
-                console.log(documentID, 2)
                 resolve();
             })
             .catch(err => {

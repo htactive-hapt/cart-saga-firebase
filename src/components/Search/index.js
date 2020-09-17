@@ -1,107 +1,83 @@
-import React, { Component } from "react";
-import {
-    Button,
-    Input,
-    Footer,
-    Card,
-    CardBody,
-    CardImage,
-    CardTitle,
-    CardText
-} from "mdbreact";
+import React, { useState, useEffect } from "react";
+import firebase from "../../firebase";
+import "./styles.scss";
+import { Col, Row } from "antd";
 
-import blankImg from "./blank.gif";
+import "antd/dist/antd.css";
+import MainLayout from "../../layouts/MainLayout";
+import { useParams, Link } from "react-router-dom";
 
-import "./style.css";
-import "./flags.min.css";
+const MainSearch = (props) => {
+  let query = useParams();
+  const searchTerm = query.query;
+  const [products, setProducts] = useState([]);
 
-import countriesList from "./countries.json";
-
-class App extends Component {
-    state = {
-        search: ""
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = firebase.firestore();
+      const data = await db.collection("products").get();
+      setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+    fetchData();
+  }, []);
 
-    renderCountry = country => {
-        const { search } = this.state;
-        var code = country.code.toLowerCase();
+  const filteredProducts = products.filter((product) => {
+    return (
+      product.productName
+        .toString()
+        .toLowerCase()
+        .indexOf(searchTerm.toString().toLowerCase()) !== -1
+    );
+  });
 
-        /*if( search !== "" && country.name.toLowerCase().indexOf( search.toLowerCase() ) === -1 ){
-            return null
-        }*/
+  const newPrice = (productPrice, discount) => {
+    return Math.round(productPrice - (parseInt(productPrice) / 100 * discount))
+  }
 
-        return (
-            <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <Card>
-                    <CardBody>
-                        <p className="">
-                            <img
-                                src={blankImg}
-                                className={"flag flag-" + code}
-                                alt={country.name}
-                            />
-                        </p>
-                        <CardTitle title={country.name}>
-                            {country.name.substring(0, 15)}
-                            {country.name.length > 15 && "..."}
-                        </CardTitle>
-                    </CardBody>
-                </Card>
+  const renderProduct = (post, index) => {
+    return (
+      <Col key={index} className="product-detail-column" span={6}>
+        <Row>
+          <Link to={{ pathname: `/product-detail/${post.documentID}`, state: post.documentID }}>
+            <img src={post.productThumbnail} style={{ width: 280, height: 350 }} alt="ảnh" />
+          </Link>
+          <div style={{ padding: 10 }}>
+            <div className="product-name">
+              {post.productName}
             </div>
-        );
-    };
-
-    onchange = e => {
-        this.setState({ search: e.target.value });
-    };
-
-    render() {
-        const { search } = this.state;
-        const filteredCountries = countriesList.filter(country => {
-            return country.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-        });
-
-        return (
-            <div className="flyout">
-                <main style={{ marginTop: "4rem" }}>
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-12">
-                                <center>
-                                    <h3>
-                                        <a
-                                            href="https://www.youtube.com/watch?v=RM_nXOyHwN0"
-                                            target="_blank"
-                                        >
-                                            Watch youtube demo here
-                    </a>
-                                    </h3>
-                                </center>
-                            </div>
-                            <div className="col">
-                                <Input
-                                    label="Search Country"
-                                    icon="search"
-                                    onChange={this.onchange}
-                                />
-                            </div>
-                            <div className="col" />
-                        </div>
-                        <div className="row">
-                            {filteredCountries.map(country => {
-                                return this.renderCountry(country);
-                            })}
-                        </div>
+            <div style={{ display: 'flex' }}>
+              {post.discount && (
+                <div style={{ display: "flex" }}>
+                  <div style={{ color: "#929292", textDecoration: "line-through" }}>
+                    ₫ {parseInt(post.productPrice)}.000
                     </div>
-                </main>
-                <Footer color="indigo">
-                    <p className="footer-copyright mb-0">
-                        &copy; {new Date().getFullYear()} Copyright
-          </p>
-                </Footer>
+                  <div style={{ color: "orange", fontSize: 14, fontWeight: 400 }}>
+                    ₫ {newPrice(post.productPrice, post.discount)}.000
+                    </div>
+                </div>
+              )}
+              {!post.discount && (
+                <div style={{ color: "orange", fontSize: 14, fontWeight: 400 }}>
+                  ₫ {parseInt(post.productPrice)}.000
+                </div>
+              )}
             </div>
-        );
-    }
-}
+            <div>Stock: {post.stock} </div>
+          </div>
+        </Row>
+      </Col>
+    );
+  };
 
-export default App;
+  return (
+    <MainLayout>
+      <Row className='products-search' style={{ marginBottom: 20 }}>
+        {filteredProducts.map((product, index) => {
+          return renderProduct(product, index);
+        })}
+      </Row>
+    </MainLayout>
+  );
+};
+
+export default MainSearch;

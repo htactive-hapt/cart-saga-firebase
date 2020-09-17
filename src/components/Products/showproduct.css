@@ -1,143 +1,46 @@
-.container-product{
+.products-container {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.product {
+    width: 15%;
+    background-color: white;
+    margin-bottom: 15px;
+}
+
+.product-name {
+    text-transform: uppercase;
+    font-size: 14pt;
+    word-break: break-all;
+    font-weight: 300;
+}
+
+.product:hover {
+    border: 1px solid #FA5730;
+}
+
+.img-product {
     width: 100%;
-    text-align: center;
-    height: auto;
-
+    height: 220px;
 }
 
-.products{
-   
-    background-color: #ffffff;
-    position: relative;
-    height: 300px;
-    margin: 20px;
-    padding-top: 50px;
-    text-align: center;
-    border: 1px solid #ffffff;
-    float: left;
-    border-radius: 2px;
-    
+button:active,
+button:focus,
+button:hover {
+    outline: none;
 }
 
-.products:hover{
-    border: 1px solid #FA5730;
-    border-radius: 2px;
-}
-
-.animation-1 {
-    position: absolute;
-    top: 90%;
-    height: 10px;
-    width: 212px;
-    /* z-index: 5; */
-    padding: 20px;
-    text-align: center;
-    /* //làm class biến mất */
-    opacity: 0; 
-    /* //transition hiện ra nhẹ nhàng */
-    transition: all 1s ease-in-out;
-    font-size: 10px;
-    border: 1px solid #FA5730;
-    border-radius: 2px;
-    /* //background trong suốt */
-    background: linear-gradient(to bottom, #f5402d -7%, #fd5f32 111%);
-    }
-
-    .animation-1 h2{
-        position: absolute;
-        color: white;
-        top: 30%;
-        margin: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        }
-.products:hover .animation-1{
-/* //Khi hover vào class hover-line thì class animation-1 sẽ hiện ra */
-opacity: 1;
-}
-
-
-
-.products .animation-2 {
-    position: absolute;
-    top: 5%;
-    height: 20px;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    left: -.1875rem;
-    width: 60px;
-    /* z-index: 5; */
-    text-align: center;
-    /* //làm class biến mất */
-    opacity: 1; 
-    /* //transition hiện ra nhẹ nhàng */
-    transition: all 1s ease-in-out;
-    font-size: 7px;
-    border: 1px solid #FA5730;
-    border-radius: 2px;
-    /* //background trong suốt */
-    background: linear-gradient(to bottom, #f5402d -7%, #fd5f32 111%);
-    }
-    .products .animation-2 h2{
-    position: absolute;
-    color: white;
-    
-    margin: 0;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    }
-
-    .products .animation-3 {
-        position: absolute;
-        top: 0;
-        height: 50px;
-        border-top-right-radius: 2px;
-        border-bottom-right-radius: 2px;
-        margin-left: 150px;
-        width: 60px;
-        /* z-index: 5; */
-        text-align: center;
-        /* //làm class biến mất */
-        opacity: 1; 
-        /* //transition hiện ra nhẹ nhàng */
-        transition: all 1s ease-in-out;
-        font-size: 7px;
-        border: 1px solid #FFD839;
-        box-sizing: border-box;
-        border-width: 0 19px 4px;
-        /* //background trong suốt */
-        background: linear-gradient(to bottom, #ffd839 30%, #ffd839 111%);
-        }
-        .products .animation-3 h2{
-        position: absolute;
-        color: white;
-        top: 40%;
-        margin: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        }   
-
-        .products .animation-3 h3{
-            position: absolute;
-            
-            top: 10%;
-            margin: 0;
-            left: 0;
-            width: 100%;
-            text-align: center;
-            }
-.price{
-color: #FA5730 ;
-font-weight: bold;
-}
-
-.searchInput{
-    width: 600px;
-    height: 40px;
-    border: 1px solid #ffffff;
-    border-radius: 2px;
-    margin-left: 10px;
+.price {
+    color: #FA5730;
+    font-weight: bold;
 }

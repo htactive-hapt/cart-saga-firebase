@@ -22,13 +22,7 @@ const AdminBar = () => {
     if (!isUserAdmin) return null;
 
     return (
-        <div className='adminBar'>
-            <ul>
-                <li>
-                    <Link to='/admin'>Admin</Link>
-                </li>
-            </ul>
-        </div>
+        <Link to='/admin'>Admin</Link>
     )
 }
 

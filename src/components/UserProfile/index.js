@@ -4,19 +4,24 @@ import userImage from '../../assets/user.png'
 
 const UserProfile = props => {
     const { currentUser } = props;
-    const { displayName } = currentUser;
+    const { displayName, email } = currentUser;
 
     return (
-        <div className="userProfile">
+        <div style={{ textAlign:'center' }} className="userProfile">
             <ul>
                 <li>
                     <div className="img">
-                        <img src={userImage} />
+                        <img alt={displayName} src={userImage} />
                     </div>
                 </li>
                 <li>
                     <span className="displayName">
                         {displayName && displayName}
+                    </span>
+                </li>
+                <li>
+                    <span  className="email">
+                        {email && email}
                     </span>
                 </li>
             </ul>

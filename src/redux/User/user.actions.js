@@ -49,3 +49,17 @@ export const resetUserState = () => ({
 export const googleSignIn = () => ({
     type: userTypes.GOOGLE_SIGN_IN
 })
+
+export const fetchUser = () => ({
+    type: userTypes.FETCH_USER
+})
+
+export const fetchUserSuccess = users => ({
+    type: userTypes.FETCH_USER_SUCCESS,
+    payload: users
+})
+
+export const fetchUserFailure = error => ({
+    type: userTypes.FETCH_USER_FAILURE,
+    payload: error
+})

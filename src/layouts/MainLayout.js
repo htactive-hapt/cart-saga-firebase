@@ -1,15 +1,19 @@
 import React from 'react'
-import ContainerHeader from '../components/Header'
-import ContentFooter from '../components/Footer'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
 
 const MainLayout = props => {
     return (
         <div >
-            <ContainerHeader {...props} />
+            <div style={{ height: 140 }}>
+                <Header {...props} />
+            </div>
             <div className='main'>
                 {props.children}
             </div>
-            <ContentFooter />
+            <div>
+                <Footer />
+            </div>
         </div>
     )
 }

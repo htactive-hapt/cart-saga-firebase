@@ -107,8 +107,8 @@ export function* googleSignIn() {
         const { user } = yield auth.signInWithPopup(GoogleProvider);
         yield getSnapshotFromUserAuth(user);
 
-    } catch (err) {
-        console.log(err);
+    } catch (error) {
+        console.log(error);
     }
 }
 
